@@ -1,0 +1,38 @@
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# Package Files
+*.jar
+*.war
+*.ear
+
+# Spring Boot specific
+target/
+bin/
+
+# Maven files
+/mvnw
+/mvnw.cmd
+.mvn/
+target/
+
+# IDE files
+.vscode/
+.settings/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+
+# Configuration files (example, customize as needed)
+*.properties
+*.yaml
+*.yml
