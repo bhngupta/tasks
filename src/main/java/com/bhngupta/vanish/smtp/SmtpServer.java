@@ -1,4 +1,4 @@
-package com.example.vanish.smtp;
+package com.bhngupta.vanish.smtp;
 
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Component;
@@ -36,9 +36,29 @@ public class SmtpServer {
             public void data(InputStream data) throws IOException {
                 ByteArrayOutputStream buffer = new ByteArrayOutputStream();
                 data.transferTo(buffer);
-                String rawEmail = buffer.toString(StandardCharsets.UTF_8);
-                System.out.println("EMAIL RECEIVED for " + recipient + ":\n" + rawEmail);
-                // Later: parse with Mime4j
+                byte[] raw = buffer.toByteArray();
+
+                DefaultMessageBuilder builder = new DefaultMessageBuilder();
+                builder.setMimeEntityConfig(MimeConfig.DEFAULT);
+                Message mimeMessage = builder.parseMessage(new ByteArrayInputStream(raw));
+
+                String subject = mimeMessage.getSubject();
+                String from = mimeMessage.getFrom().toString();
+                String body = mimeMessage.getBody().toString(); // Simple text emails
+                // Advanced: check type and parse multipart later
+
+                EmailMessage email = new EmailMessage(
+                    UUID.randomUUID().toString(),
+                    this.recipient,
+                    from,
+                    subject,
+                    body,
+                    LocalDateTime.now(),
+                    Collections.emptyList()
+                );
+
+                System.out.println("Parsed Email: " + email.getSubject() + " from " + email.getFrom());
+                // TODO: Store in memory or Redis
             }
 
             @Override

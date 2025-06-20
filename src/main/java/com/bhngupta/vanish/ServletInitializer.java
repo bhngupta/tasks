@@ -1,4 +1,4 @@
-package com.example.vanish;
+package com.bhngupta.vanish;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
