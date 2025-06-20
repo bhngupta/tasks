@@ -1,5 +1,8 @@
 package com.bhngupta.vanish.smtp;
 
+import com.bhngupta.vanish.model.EmailMessage;
+import com.bhngupta.vanish.storage.TempEmailService;
+
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Component;
 import org.subethamail.smtp.MessageHandler;
@@ -9,9 +12,16 @@ import org.subethamail.smtp.server.SMTPServer;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
 
 @Component
 public class SmtpServer {
+
+    private final TempEmailService tempEmailService;
+
+    public SmtpServer(TempEmailService tempEmailService) {
+        this.tempEmailService = tempEmailService;
+    }
 
     @PostConstruct
     public void startSmtpServer() {
@@ -58,7 +68,8 @@ public class SmtpServer {
                 );
 
                 System.out.println("Parsed Email: " + email.getSubject() + " from " + email.getFrom());
-                // TODO: Store in memory or Redis
+
+                tempEmailService.storeEmail(this.recipient, email);
             }
 
             @Override
