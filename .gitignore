@@ -1,3 +1,7 @@
+* text=auto
+*.cmd text eol=crlf
+*.bat text eol=crlf
+
 # Compiled class file
 *.class
 
@@ -12,27 +16,20 @@
 # Spring Boot specific
 target/
 bin/
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
 
-# Maven files
-/mvnw
-/mvnw.cmd
-.mvn/
-target/
+# STS
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
 
-# IDE files
+# Misc
 .vscode/
-.settings/
-
-# OS generated files
 .DS_Store
 Thumbs.db
-
-# Temporary files
-*.tmp
-*.bak
-*.swp
-
-# Configuration files (example, customize as needed)
-*.properties
-*.yaml
-*.yml
